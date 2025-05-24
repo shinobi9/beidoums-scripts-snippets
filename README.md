@@ -1,4 +1,4 @@
-# beidoums-scripts-snippets README
+# beidoums-scripts-snippets
 
 some code snippets
 

@@ -1,23 +1,22 @@
-# Welcome to your VS Code Extension
+# beidoums-scripts-snippets
 
-## What's in the folder
+some code snippets
 
-* This folder contains all of the files necessary for your extension.
-* `package.json` - this is the manifest file that defines the location of the snippet file and specifies the language of the snippets.
-* `snippets/snippets.code-snippets` - the file containing all snippets.
+- /bss
 
-## Get up and running straight away
+  无状态脚本模板
+- /bsse
 
-* Press `F5` to open a new window with your extension loaded.
-* Create a new file with a file name suffix matching your language.
-* Verify that your snippets are proposed on IntelliSense.
+  无状态脚本完整例子
+- /pps
 
-## Make changes
+  js实现的一个脚本模板
+- /ppse
 
-* You can relaunch the extension from the debug toolbar after making changes to the files listed above.
-* You can also reload (`Ctrl+R` or `Cmd+R` on Mac) the VS Code window with your extension to load your changes.
+  js实现的一个脚本完整例子
+- /v
 
-## Install your extension
+  普通脚本例子
+- /
 
-* To start using your extension with Visual Studio Code copy it into the `<user home>/.vscode/extensions` folder and restart Code.
-* To share your extension with the world, read on https://code.visualstudio.com/api/working-with-extensions/publishing-extension about publishing an extension.
+  引入类型定义（为cm/rm/ms/pi..等提供代码提示补全

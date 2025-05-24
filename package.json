@@ -4,7 +4,7 @@
   "description": "some scripts snippets and code completion for beidoums",
   "publisher": "shinobi9",
   "author": "shinobi9",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.60.0"
