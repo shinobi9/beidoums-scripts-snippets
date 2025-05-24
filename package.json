@@ -1,0 +1,37 @@
+{
+  "name": "beidoums-scripts-snippets",
+  "displayName": "beidoums-scripts-snippets",
+  "description": "some scripts snippets and code completion for beidoums",
+  "publisher": "shinobi9",
+  "author": "shinobi9",
+  "version": "0.0.1",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ],
+    "typescriptServerPlugins": [
+      {
+        "name": "beidoums-scripts-types",
+        "enableForWorkspaceTypeScriptVersions": true
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shinobi9/beidoums-scripts-snippets"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js"
+}
