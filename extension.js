@@ -30,7 +30,7 @@ function activate(context) {
   });
   const triggerText = "/";
   const prefix = "///";
-  const text = `/// <reference no-default-lib="true"/>\n/// <reference path="${dtsPath}" />`;
+  const text = `/// <reference no-default-lib="true"/>\n/// <reference path="${dtsPath}" />\n\n\$0`;
   const detail = "指定类型定义文件";
   const documentation = "指定类型定义文件";
   const provider = vscode.languages.registerCompletionItemProvider(

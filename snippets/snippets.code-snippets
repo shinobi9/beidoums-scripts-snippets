@@ -5,7 +5,8 @@
 		"scope": "javascript",
 		"body": [
 			"/**",
-			" * 纯js状态管理",
+			" * @description 纯js状态管理 一个示例",
+			" * @author shinobi9",
 			" */",
 			"class StatusManager {",
 			"  constructor(statusList) {",
