@@ -3995,4 +3995,4 @@ declare interface QuestActionManager extends NPCConversationManager{
     startQuest() : void
 }
 
-// export { };
+export { };
