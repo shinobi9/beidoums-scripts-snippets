@@ -4,7 +4,7 @@
   "description": "some scripts snippets and code completion for beidoums",
   "publisher": "shinobi9",
   "author": "shinobi9",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.60.0"
@@ -16,7 +16,15 @@
     "snippets": [
       {
         "language": "javascript",
-        "path": "./snippets/snippets.code-snippets"
+        "path": "./snippets/beidoums-stateless.code-snippets"
+      },
+      {
+        "language": "javascript",
+        "path": "./snippets/beidoums-vanilla.code-snippets"
+      },
+      {
+        "language": "javascript",
+        "path": "./snippets/shinobi9-personal.code-snippets"
       }
     ],
     "typescriptServerPlugins": [
