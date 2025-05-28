@@ -1,6 +1,13 @@
 # beidoums-scripts-snippets
 
-some code snippets
+### 全局引入类型定义
+
+-`F1` / `Ctrl + Shift + p` ， 搜索 beidoums
+
+会生成 `jsconfig.json`，只做类型引入的最简功能。
+
+
+### 一些代码提示：
 
 - /bss
 
@@ -25,4 +32,4 @@ some code snippets
   js实现的一个状态管理脚本模板(压缩了部分代码)
 - /
 
-  引入类型定义（为cm/rm/ms/pi..等提供代码提示补全
+  单文件引入类型定义（为cm/rm/ms/pi..等提供代码提示补全
