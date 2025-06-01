@@ -1,15 +1,10 @@
 const path = require("path");
 const fs = require("fs");
-const os = require("os");
 const vscode = require('vscode');
 
-const EOL = os.EOL;
-
 let disposableCommand;
-let disposableCompletionItemProvider;
 
 function activate(context) {
-  registerCompletionItems(context);
   regitserCommands(context);
   console.log("beidoums type definitions helper and snippets is now active!");
 }
@@ -19,20 +14,14 @@ function deactivate() {
     disposableCommand.dispose();
     disposableCommand = undefined;
   }
-  if (disposableCompletionItemProvider) {
-    disposableCompletionItemProvider.dispose();
-    disposableCompletionItemProvider = undefined;
-  }
 }
 
 function regitserCommands(context) {
-  const dtsPath = getDtsPath(context);
-  const jsconfigContent = {
-    files: [dtsPath],
-    include: ["**/*.js"],
-  };
+  const dtsFile = "beidoums-scripts.d.ts"
+  const extensionPath = context.extensionPath;
+  const dtsPath = path.posix.join(extensionPath.replace(/\\/g, "/"), "types", dtsFile);
 
-  disposableCommand = vscode.commands.registerCommand("beidoums-scripts-snippets.create-jsconfig", async () => {
+  disposableCommand = vscode.commands.registerCommand("beidoums-scripts-snippets.workspace-import-dts", async () => {
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (!workspaceFolders) {
       vscode.window.showErrorMessage("open workspace first!");
@@ -41,74 +30,48 @@ function regitserCommands(context) {
 
     const activeEditor = vscode.window.activeTextEditor;
     if (!activeEditor) {
-      vscode.window.showErrorMessage("open workspace first!");
+      vscode.window.showErrorMessage("edit a document then!");
       return;
     }
     const activeEditorUri = activeEditor.document.uri;
 
     const activeWorkspace = vscode.workspace.getWorkspaceFolder(activeEditorUri);
     if (!activeWorkspace) {
-      vscode.window.showErrorMessage("open workspace first!");
+      vscode.window.showErrorMessage("require real workspace");
       return;
     }
 
-    const rootPath = activeWorkspace.uri.fsPath;
+    const projectRootPath = activeWorkspace.uri.fsPath;
 
-    const jsconfigPath = path.join(rootPath, "jsconfig.json");
+    const jsConfigFile = "jsconfig.json"
+    const jsconfigContent = {
+      files: [dtsFile],
+      include: ["**/*.js"],
+    };
+    const projectJsConfigPath = path.join(projectRootPath, jsConfigFile);
+    const projectDtsPath = path.join(projectRootPath, dtsFile);
 
     try {
-      if (fs.existsSync(jsconfigPath)) {
-        vscode.window.showErrorMessage("jsconfig.json exists, won't generate");
-        return;
+
+      if (fs.existsSync(projectJsConfigPath)) {
+        vscode.window.showWarningMessage(`${jsConfigFile} exists, won't generate`);
+      } else {
+        fs.writeFileSync(projectJsConfigPath, JSON.stringify(jsconfigContent, null, 2), { encoding: "utf8" });
+        vscode.window.showInformationMessage(`${jsConfigFile} create success!`);
       }
-      fs.writeFileSync(jsconfigPath, JSON.stringify(jsconfigContent, null, 2), "utf8");
-      vscode.window.showInformationMessage("jsconfig.json create success!");
+
+      if (fs.existsSync(projectDtsPath)) {
+        vscode.window.showWarningMessage(`${dtsFile} exists, won't generate`);
+      } else {
+        fs.writeFileSync(projectDtsPath, fs.readFileSync(dtsPath), { encoding: "utf8" });
+        vscode.window.showInformationMessage(`${dtsFile} create success!`);
+      }
+
     } catch (error) {
       vscode.window.showErrorMessage(`error in creating jsconfig.json: ${error}`);
     }
   });
   context.subscriptions.push(disposableCommand);
-}
-
-function registerCompletionItems(context) {
-  // 获取扩展的绝对路径
-  const dtsPath = getDtsPath(context);
-  const triggerText = "/";
-  const prefix = "///";
-
-  const text = `/// <reference no-default-lib="true"/>${EOL}/// <reference path="${dtsPath}" />${EOL}${EOL}\$0`;
-  const detail = "指定类型定义文件";
-  const documentation = "指定类型定义文件";
-  disposableCompletionItemProvider = vscode.languages.registerCompletionItemProvider(
-    "javascript",
-    {
-      provideCompletionItems(document, position) {
-        const linePrefix = document.lineAt(position).text.substring(0, position.character);
-
-        if (!linePrefix.endsWith(triggerText)) {
-          return undefined;
-        }
-
-        const startPos = new vscode.Position(position.line, linePrefix.lastIndexOf(triggerText));
-
-        const completionItem = new vscode.CompletionItem(prefix, vscode.CompletionItemKind.Snippet);
-        completionItem.range = new vscode.Range(startPos, position);
-        completionItem.insertText = new vscode.SnippetString(text);
-        completionItem.detail = detail;
-        completionItem.documentation = documentation;
-        completionItem.filterText = prefix;
-        return [completionItem];
-      },
-    },
-    triggerText
-  );
-  context.subscriptions.push(disposableCompletionItemProvider);
-}
-
-function getDtsPath(context) {
-  const extensionPath = context.extensionPath;
-  const dtsPath = path.posix.join(extensionPath.replace(/\\/g, "/"), "types", "index.d.ts");
-  return dtsPath;
 }
 
 module.exports = {

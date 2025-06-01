@@ -4,7 +4,7 @@
   "description": "some scripts snippets and code completion for beidoums",
   "publisher": "shinobi9",
   "author": "shinobi9",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "icon": "icon.png",
   "repository": {
     "type": "git",
@@ -33,15 +33,15 @@
     ],
     "commands": [
       {
-        "command": "beidoums-scripts-snippets.create-jsconfig",
-        "title": "create beidoums jsconfig.json",
+        "command": "beidoums-scripts-snippets.workspace-import-dts",
+        "title": "create beidoums jsconfig.json && beidoums-scripts.d.ts",
         "category": "Beidoums Scripts Snippets"
       }
     ]
   },
   "activationEvents": [
     "onStartupFinished",
-    "onCommand:beidoums-scripts-snippets.create-jsconfig"
+    "onCommand:beidoums-scripts-snippets.workspace-import-dts"
   ],
   "main": "./extension.js"
 }
